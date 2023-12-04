@@ -16,7 +16,7 @@ def calculate_path_length(path):
 
 
 # The maximum path length for 100%
-max_path_length = 10000.0  # units
+max_path_length = 3000.0  # units
 
 # Start capturing video
 cap = cv2.VideoCapture(1)
@@ -45,7 +45,7 @@ def send_to_dashboard(percent):
     client.publish(f"{username}/feeds/progress_bar", str(percent))
 
 
-dashboard_interval = 2
+dashboard_interval = 3
 
 next_time = time.time() + dashboard_interval
 while True:
@@ -57,8 +57,12 @@ while True:
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
     # Define range of blue color in HSV
-    lower_blue = np.array([100, 150, 50])
+    lower_blue = np.array([100, 50, 50])
     upper_blue = np.array([140, 255, 255])
+
+    # lower_blue = np.array([100, 50, 50])
+    # upper_blue = np.array([140, 255, 255])
+
 
     # Threshold the HSV image to get only blue colors
     mask = cv2.inRange(hsv, lower_blue, upper_blue)
