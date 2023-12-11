@@ -6,7 +6,6 @@ from collections import deque
 from scipy.spatial.distance import euclidean
 import paho.mqtt.client as mqtt
 import time
-import sys
 from my_secrets import ADAFRIUT
 
 # Initialize Deque to store points with no maxlen
