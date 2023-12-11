@@ -8,6 +8,7 @@ import urequests
 from machine import Pin, PWM, I2C, ADC
 import math
 
+# set up input and output devices
 fan_servo = PWM(Pin(15))
 fan_servo.freq(50)
 high_pin = Pin(26, Pin.OUT)
@@ -29,12 +30,6 @@ def connect_wifi(wifi):
     print(station.ifconfig())
 
 
-# def on_connect(client, userdata, flags, rc):
-#     if rc == 0:
-#         print("Connected")
-#     else:
-#         print("Failed to connect, return code %d\n", rc)
-
 def num_to_range(num, inMin, inMax, outMin, outMax):
     return outMin + (float(num - inMin) / float(inMax - inMin) * (outMax
                                                                   - outMin))
@@ -53,8 +48,6 @@ def toggle_leds(toggle):
         cel_pin.off()
 
 
-
-connect_wifi(wifi)
 def whenCalled(topic, msg):
     topic = topic.decode()
     msg = msg.decode()
@@ -70,6 +63,10 @@ def whenCalled(topic, msg):
         print("green")
         toggle_leds(True)
 
+
+connect_wifi(wifi)
+
+# connect to Adafruit Dashboard through MQTT
 broker_address = "io.adafruit.com"
 username = ADAFRIUT["username"]
 password = ADAFRIUT["password"]
@@ -82,19 +79,17 @@ client.set_callback(whenCalled)
 client.subscribe(f"{username}/feeds/go_button")
 client.subscribe(f"{username}/feeds/progress_bar")
 
-print("mqtt connected")
+print("MQTT connected")
+
+# blink LEDs to signal connection
 toggle_leds(True)
 time.sleep(.3)
 toggle_leds(False)
 time.sleep(.3)
 toggle_leds(True)
 
-
 while True:
     client.check_msg()
-
-mins_till_next_read = 1
-next_read_time = time.ticks_ms() + mins_till_next_read * 60 * 1000
 
 client.disconnect()
 
