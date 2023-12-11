@@ -17,7 +17,8 @@ machine: This is a MicroPython module used to interact with the hardware compone
 
 math: A standard Python library for mathematical functions.
 
-For final_project_OpenCV.py:
+### For final_project_OpenCV.py:
+
 cv2 (OpenCV): This is the OpenCV library used for computer vision tasks, like image and video processing.
 
 numpy: A fundamental package for scientific computing in Python. It's commonly used with OpenCV for manipulating arrays (images, in this case).
