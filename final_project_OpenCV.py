@@ -1,3 +1,4 @@
+# final_project_OpenCV.py
 # Note: ChatGPT helped write parts of this code
 import cv2
 import numpy as np
@@ -7,6 +8,7 @@ import paho.mqtt.client as mqtt
 import time
 import sys
 from my_secrets import ADAFRIUT
+
 # Initialize Deque to store points with no maxlen
 path = deque()
 
@@ -60,10 +62,6 @@ while True:
     # Define range of blue color in HSV
     lower_blue = np.array([100, 50, 50])
     upper_blue = np.array([140, 255, 255])
-
-    # lower_blue = np.array([100, 50, 50])
-    # upper_blue = np.array([140, 255, 255])
-
 
     # Threshold the HSV image to get only blue colors
     mask = cv2.inRange(hsv, lower_blue, upper_blue)
